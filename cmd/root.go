@@ -58,9 +58,9 @@ var (
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "go-template-web",
-	Short: "go-template-web",
-	Long:  `go-template-web is a template of golang web server`,
+	Use:   "go-template-cli",
+	Short: "go-template-cli",
+	Long:  `go-template-cli is a template of golang command line program`,
 	Run: func(cmd *cobra.Command, args []string) {
 		// if no subcommand is set, it will print help information.
 		if len(args) == 0 {

@@ -14,8 +14,8 @@ const (
 
 func initInfoMessage() {
 	// server
-	Messages[InfoServerStart] = config.NewErrMessage(DefaultMessageHeader, InfoServerStart, "go-template-web started successfully. pid: %d, pid file: %s")
-	Messages[InfoServerStop] = config.NewErrMessage(DefaultMessageHeader, InfoServerStop, "go-template-web stopped successfully. pid: %d, pid file: %s")
-	Messages[InfoServerIsRunning] = config.NewErrMessage(DefaultMessageHeader, InfoServerIsRunning, "go-template-web is running. pid: %d")
-	Messages[InfoServerNotRunning] = config.NewErrMessage(DefaultMessageHeader, InfoServerNotRunning, "go-template-web is not running. pid: %d")
+	Messages[InfoServerStart] = config.NewErrMessage(DefaultMessageHeader, InfoServerStart, "go-template-cli started successfully. pid: %d, pid file: %s")
+	Messages[InfoServerStop] = config.NewErrMessage(DefaultMessageHeader, InfoServerStop, "go-template-cli stopped successfully. pid: %d, pid file: %s")
+	Messages[InfoServerIsRunning] = config.NewErrMessage(DefaultMessageHeader, InfoServerIsRunning, "go-template-cli is running. pid: %d")
+	Messages[InfoServerNotRunning] = config.NewErrMessage(DefaultMessageHeader, InfoServerNotRunning, "go-template-cli is not running. pid: %d")
 }

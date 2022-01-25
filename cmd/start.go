@@ -25,7 +25,6 @@ import (
 	"github.com/pingcap/errors"
 	"github.com/romberli/go-template/config"
 	"github.com/romberli/go-template/pkg/message"
-	"github.com/romberli/go-template/server"
 	"github.com/romberli/go-util/constant"
 	"github.com/romberli/go-util/linux"
 	"github.com/romberli/log"
@@ -104,15 +103,6 @@ var startCmd = &cobra.Command{
 			}
 
 			log.CloneStdoutLogger().Info(message.NewMessage(message.InfoServerStart, serverPid, serverPidFile).Error())
-
-			// start server
-			serverAddr = viper.GetString(config.ServerAddrKey)
-			serverPidFile = viper.GetString(config.ServerPidFileKey)
-			serverReadTimeout = viper.GetInt(config.ServerReadTimeoutKey)
-			serverWriteTimeout = viper.GetInt(config.ServerWriteTimeoutKey)
-			s := server.NewServerWithDefaultRouter(serverAddr, serverPidFile, serverReadTimeout, serverWriteTimeout)
-			s.Register()
-			go s.Run()
 
 			// handle signal
 			linux.HandleSignalsWithPidFile(serverPidFile)
