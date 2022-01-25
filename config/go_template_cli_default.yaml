@@ -48,46 +48,6 @@ log:
   # default: 5
   maxBackups: 5
 
-# log configuration
-log:
-  # description: log file path, if it's specified as relative path,
-  # then directory of binary file will be the base directory of log file,
-  # it is recommended to specify absolute path.
-  # command-line-argument: --log-file
-  # type: string
-  # default: log/run.log
-  file: log/run.log
-  # description: log level
-  # command-line-argument: --log-level
-  # type: string
-  # available: [debug, info, warn, error, fatal]
-  # default: info
-  level: info
-  # description: log format
-  # command-line-argument: --log-format
-  # type: string
-  # available: [text, json]
-  # default: text
-  format: text
-  # description: log file max size
-  # command-line-argument: --log-max-size
-  # unit: MB
-  # type: int
-  # default: 100
-  maxSize: 100
-  # description: specify how many days the log file will be kept after rotating,
-  # older than max-days files will be removed automatically.
-  # command-line-argument: --log-max-days
-  # type: int
-  # default: 7
-  maxDays: 7
-  # description: specify how many files will be kept after rotating,
-  # the oldest log files will be removed automatically.
-  # command-line-argument: --log-max-backups
-  # type: int
-  # default: 5
-  maxBackups: 5
-
 # server configuration
 server:
   # description: specify the server listening address, format: host:port
