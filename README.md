@@ -1,2 +1,2 @@
-# go-template-web
-go-template-web is a template of golang web server.
+# go-template-cli
+go-template-cli is a template of golang command line tool.
