@@ -22,16 +22,22 @@ import (
 
 // global constant
 const (
-	DefaultCommandName        = "go-template-cli"
-	DefaultDaemon             = false
-	DefaultBaseDir            = constant.CurrentDir
-	DefaultLogDir             = "./log"
-	MinLogMaxSize             = 1
-	MaxLogMaxSize             = constant.MaxInt
-	MinLogMaxDays             = 1
-	MaxLogMaxDays             = constant.MaxInt
-	MinLogMaxBackups          = 1
-	MaxLogMaxBackups          = constant.MaxInt
+	DefaultCommandName = "go-template-cli"
+	DefaultBaseDir     = constant.CurrentDir
+	// daemon
+	DefaultDaemon  = false
+	DaemonArg      = "--daemon"
+	DaemonArgTrue  = "--daemon=true"
+	DaemonArgFalse = "--daemon=false"
+	// log
+	DefaultLogDir    = "./log"
+	MinLogMaxSize    = 1
+	MaxLogMaxSize    = constant.MaxInt
+	MinLogMaxDays    = 1
+	MaxLogMaxDays    = constant.MaxInt
+	MinLogMaxBackups = 1
+	MaxLogMaxBackups = constant.MaxInt
+	// server
 	DefaultServerAddr         = "0.0.0.0:80"
 	DefaultServerReadTimeout  = 5
 	DefaultServerWriteTimeout = 10
@@ -39,8 +45,6 @@ const (
 	MaxServerReadTimeout      = 60
 	MinServerWriteTimeout     = 1
 	MaxServerWriteTimeout     = 60
-	DaemonArgTrue             = "--daemon=true"
-	DaemonArgFalse            = "--daemon=false"
 )
 
 // configuration constant

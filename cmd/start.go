@@ -32,6 +32,8 @@ import (
 	"github.com/spf13/viper"
 )
 
+const startCommand = "start"
+
 // startCmd represents the start command
 var startCmd = &cobra.Command{
 	Use:   "start",
@@ -47,7 +49,7 @@ var startCmd = &cobra.Command{
 		// init config
 		err = initConfig()
 		if err != nil {
-			fmt.Println(fmt.Sprintf("%+v", message.NewMessage(message.ErrInitConfig, err)))
+			fmt.Println(fmt.Sprintf(constant.LogWithStackString, message.NewMessage(message.ErrInitConfig, err)))
 			os.Exit(constant.DefaultAbnormalExitCode)
 		}
 
@@ -55,17 +57,17 @@ var startCmd = &cobra.Command{
 		serverPidFile = viper.GetString(config.ServerPidFileKey)
 		pidFileExists, err = linux.PathExists(serverPidFile)
 		if err != nil {
-			log.Errorf("%+v", message.NewMessage(message.ErrCheckServerPid, err))
+			log.Errorf(constant.LogWithStackString, message.NewMessage(message.ErrCheckServerPid, err))
 			os.Exit(constant.DefaultAbnormalExitCode)
 		}
 		if pidFileExists {
 			isRunning, err = linux.IsRunningWithPidFile(serverPidFile)
 			if err != nil {
-				log.Errorf("%+v", message.NewMessage(message.ErrCheckServerRunningStatus, err))
+				log.Errorf(constant.LogWithStackString, message.NewMessage(message.ErrCheckServerRunningStatus, err))
 				os.Exit(constant.DefaultAbnormalExitCode)
 			}
 			if isRunning {
-				log.Errorf("%+v", message.NewMessage(message.ErrServerIsRunning, serverPidFile))
+				log.Errorf(constant.LogWithStackString, message.NewMessage(message.ErrServerIsRunning, serverPidFile))
 				os.Exit(constant.DefaultAbnormalExitCode)
 			}
 		}
@@ -74,18 +76,29 @@ var startCmd = &cobra.Command{
 		daemon = viper.GetBool(config.DaemonKey)
 		if daemon {
 			// set daemon to false
+			var daemonExists bool
 			args = os.Args[1:]
-			for i, arg := range os.Args[1:] {
+			for i, arg := range args {
 				if config.TrimSpaceOfArg(arg) == config.DaemonArgTrue {
+					daemonExists = true
 					args[i] = config.DaemonArgFalse
+				}
+
+				if arg == config.DaemonArg && i < len(args)-1 {
+					daemonExists = true
+					args[i+1] = constant.FalseString
 				}
 			}
 
+			if !daemonExists {
+				args = append([]string{startCommand, config.DaemonArgFalse}, args[1:]...)
+			}
+
 			// start server with new process
-			startCommand := exec.Command(os.Args[0], args...)
+			startCommand := exec.Command(os.Args[constant.ZeroInt], args...)
 			err = startCommand.Start()
 			if err != nil {
-				log.Errorf("%+v", message.NewMessage(message.ErrStartAsForeground, errors.Trace(err)))
+				log.Errorf(constant.LogWithStackString, message.NewMessage(message.ErrStartAsForeground, errors.Trace(err)))
 				os.Exit(constant.DefaultAbnormalExitCode)
 			}
 
@@ -98,7 +111,7 @@ var startCmd = &cobra.Command{
 			// save pid
 			err = linux.SavePid(serverPid, serverPidFile, constant.DefaultFileMode)
 			if err != nil {
-				log.Errorf("%+v", message.NewMessage(message.ErrSavePidToFile, err))
+				log.Errorf(constant.LogWithStackString, message.NewMessage(message.ErrSavePidToFile, err))
 				os.Exit(constant.DefaultAbnormalExitCode)
 			}
 

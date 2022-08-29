@@ -66,7 +66,7 @@ var rootCmd = &cobra.Command{
 		if len(args) == 0 {
 			err := cmd.Help()
 			if err != nil {
-				fmt.Println(fmt.Sprintf("%+v", message.NewMessage(message.ErrPrintHelpInfo, errors.Trace(err))))
+				fmt.Println(fmt.Sprintf(constant.LogWithStackString, message.NewMessage(message.ErrPrintHelpInfo, errors.Trace(err))))
 				os.Exit(constant.DefaultAbnormalExitCode)
 			}
 
@@ -76,7 +76,7 @@ var rootCmd = &cobra.Command{
 		// init config
 		err := initConfig()
 		if err != nil {
-			fmt.Println(fmt.Sprintf("%+v", message.NewMessage(message.ErrInitConfig, err)))
+			fmt.Println(fmt.Sprintf(constant.LogWithStackString, message.NewMessage(message.ErrInitConfig, err)))
 			os.Exit(constant.DefaultAbnormalExitCode)
 		}
 	},
@@ -86,7 +86,7 @@ var rootCmd = &cobra.Command{
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(fmt.Sprintf("%+v", errors.Trace(err)))
+		fmt.Println(fmt.Sprintf(constant.LogWithStackString, errors.Trace(err)))
 		os.Exit(constant.DefaultAbnormalExitCode)
 	}
 }
