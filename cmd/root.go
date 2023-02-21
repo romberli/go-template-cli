@@ -23,8 +23,8 @@ import (
 	"strings"
 
 	"github.com/pingcap/errors"
-	"github.com/romberli/go-template/config"
-	"github.com/romberli/go-template/pkg/message"
+	"github.com/romberli/go-template-cli/config"
+	"github.com/romberli/go-template-cli/pkg/message"
 	"github.com/romberli/go-util/constant"
 	"github.com/romberli/log"
 	"github.com/spf13/cast"
@@ -42,12 +42,13 @@ var (
 	daemon    bool
 	daemonStr string
 	// log
-	logFileName   string
-	logLevel      string
-	logFormat     string
-	logMaxSize    int
-	logMaxDays    int
-	logMaxBackups int
+	logFileName           string
+	logLevel              string
+	logFormat             string
+	logMaxSize            int
+	logMaxDays            int
+	logMaxBackups         int
+	logRotateOnStartupStr string
 	// server
 	serverAddr         string
 	serverPid          int
@@ -109,6 +110,7 @@ func init() {
 	rootCmd.PersistentFlags().IntVar(&logMaxSize, "log-max-size", constant.DefaultRandomInt, fmt.Sprintf("specify the log file max size(default: %d)", log.DefaultLogMaxSize))
 	rootCmd.PersistentFlags().IntVar(&logMaxDays, "log-max-days", constant.DefaultRandomInt, fmt.Sprintf("specify the log file max days(default: %d)", log.DefaultLogMaxDays))
 	rootCmd.PersistentFlags().IntVar(&logMaxBackups, "log-max-backups", constant.DefaultRandomInt, fmt.Sprintf("specify the log file max backups(default: %d)", log.DefaultLogMaxBackups))
+	rootCmd.PersistentFlags().StringVar(&logRotateOnStartupStr, "log-rotate-on-startup", constant.DefaultRandomString, fmt.Sprintf("specify if rotating the log file on startup(default: %s)", constant.FalseString))
 	// server
 	rootCmd.PersistentFlags().StringVar(&serverAddr, "server-addr", constant.DefaultRandomString, fmt.Sprintf("specify the server addr(default: %s)", config.DefaultServerAddr))
 	rootCmd.PersistentFlags().StringVar(&serverPidFile, "server-pid-file", constant.DefaultRandomString, fmt.Sprintf("specify the server pid file path(default: %s)", filepath.Join(config.DefaultBaseDir, fmt.Sprintf("%s.pid", config.DefaultCommandName))))

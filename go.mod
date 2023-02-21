@@ -1,4 +1,4 @@
-module github.com/romberli/go-template
+module github.com/romberli/go-template-cli
 
 go 1.16
 

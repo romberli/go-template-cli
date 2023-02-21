@@ -30,13 +30,14 @@ const (
 	DaemonArgTrue  = "--daemon=true"
 	DaemonArgFalse = "--daemon=false"
 	// log
-	DefaultLogDir    = "./log"
-	MinLogMaxSize    = 1
-	MaxLogMaxSize    = constant.MaxInt
-	MinLogMaxDays    = 1
-	MaxLogMaxDays    = constant.MaxInt
-	MinLogMaxBackups = 1
-	MaxLogMaxBackups = constant.MaxInt
+	DefaultLogDir          = "./log"
+	MinLogMaxSize          = 1
+	MaxLogMaxSize          = constant.MaxInt
+	MinLogMaxDays          = 1
+	MaxLogMaxDays          = constant.MaxInt
+	MinLogMaxBackups       = 1
+	MaxLogMaxBackups       = constant.MaxInt
+	DefaultRotateOnStartup = false
 	// server
 	DefaultServerAddr         = "0.0.0.0:80"
 	DefaultServerReadTimeout  = 5
@@ -57,6 +58,7 @@ const (
 	LogMaxSizeKey         = "log.maxSize"
 	LogMaxDaysKey         = "log.maxDays"
 	LogMaxBackupsKey      = "log.maxBackups"
+	LogRotateOnStartupKey = "log.rotateOnStartup"
 	ServerAddrKey         = "server.addr"
 	ServerPidFileKey      = "server.pidFile"
 	ServerReadTimeoutKey  = "server.readTimeout"
