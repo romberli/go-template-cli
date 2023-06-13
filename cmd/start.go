@@ -23,13 +23,14 @@ import (
 	"time"
 
 	"github.com/pingcap/errors"
-	"github.com/romberli/go-template-cli/config"
-	"github.com/romberli/go-template-cli/pkg/message"
 	"github.com/romberli/go-util/constant"
 	"github.com/romberli/go-util/linux"
 	"github.com/romberli/log"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	"github.com/romberli/go-template-cli/config"
+	"github.com/romberli/go-template-cli/pkg/message"
 )
 
 const startCommand = "start"
@@ -118,7 +119,7 @@ var startCmd = &cobra.Command{
 			log.CloneStdoutLogger().Info(message.NewMessage(message.InfoServerStart, serverPid, serverPidFile).Error())
 
 			// handle signal
-			linux.HandleSignalsWithPidFile(serverPidFile)
+			linux.HandleSignals(serverPidFile)
 		}
 	},
 }
