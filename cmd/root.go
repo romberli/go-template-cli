@@ -20,16 +20,15 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/pingcap/errors"
-	"github.com/romberli/go-template-cli/config"
-	"github.com/romberli/go-template-cli/pkg/message"
 	"github.com/romberli/go-util/constant"
 	"github.com/romberli/log"
-	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	"github.com/romberli/go-template-cli/config"
+	"github.com/romberli/go-template-cli/pkg/message"
 )
 
 const defaultConfigFileType = "yaml"
@@ -139,7 +138,7 @@ func initConfig() error {
 	}
 
 	// override config with command line arguments
-	err = OverrideConfig()
+	err = OverrideConfigByCLI()
 	if err != nil {
 		return message.NewMessage(message.ErrOverrideCommandLineArgs, err)
 	}
@@ -204,68 +203,6 @@ func ReadConfigFile() (err error) {
 	}
 
 	return nil
-}
-
-// OverrideConfig read configuration from command line interface, it will override the config file configuration
-func OverrideConfig() (err error) {
-	// override config
-	if cfgFile != constant.EmptyString && cfgFile != constant.DefaultRandomString {
-		viper.Set(config.ConfKey, cfgFile)
-	}
-
-	// override daemon
-	if daemonStr != constant.DefaultRandomString {
-		daemon, err := cast.ToBoolE(daemonStr)
-		if err != nil {
-			return errors.Trace(err)
-		}
-
-		viper.Set(config.DaemonKey, daemon)
-	}
-
-	// override log
-	if logFileName != constant.DefaultRandomString {
-		viper.Set(config.LogFileNameKey, logFileName)
-	}
-	if logLevel != constant.DefaultRandomString {
-		logLevel = strings.ToLower(logLevel)
-		viper.Set(config.LogLevelKey, logLevel)
-	}
-	if logFormat != constant.DefaultRandomString {
-		logLevel = strings.ToLower(logFormat)
-		viper.Set(config.LogFormatKey, logFormat)
-	}
-	if logMaxSize != constant.DefaultRandomInt {
-		viper.Set(config.LogMaxSizeKey, logMaxSize)
-	}
-	if logMaxDays != constant.DefaultRandomInt {
-		viper.Set(config.LogMaxDaysKey, logMaxDays)
-	}
-	if logMaxBackups != constant.DefaultRandomInt {
-		viper.Set(config.LogMaxBackupsKey, logMaxBackups)
-	}
-
-	// override server
-	if serverAddr != constant.DefaultRandomString {
-		viper.Set(config.ServerAddrKey, serverAddr)
-	}
-	if serverPidFile != constant.DefaultRandomString {
-		viper.Set(config.ServerPidFileKey, serverPidFile)
-	}
-	if serverReadTimeout != constant.DefaultRandomInt {
-		viper.Set(config.ServerReadTimeoutKey, serverReadTimeout)
-	}
-	if serverWriteTimeout != constant.DefaultRandomInt {
-		viper.Set(config.ServerWriteTimeoutKey, serverWriteTimeout)
-	}
-
-	// validate configuration
-	err = config.ValidateConfig()
-	if err != nil {
-		return message.NewMessage(message.ErrValidateConfig, err)
-	}
-
-	return err
 }
 
 // UsageTemplateWithoutDefault returns a usage template which does not contain default part

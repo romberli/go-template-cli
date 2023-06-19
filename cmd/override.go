@@ -1,13 +1,15 @@
 package cmd
 
 import (
+	"strings"
+
 	"github.com/pingcap/errors"
-	"github.com/romberli/go-template-cli/config"
-	"github.com/romberli/go-template-cli/pkg/message"
 	"github.com/romberli/go-util/constant"
 	"github.com/spf13/cast"
 	"github.com/spf13/viper"
-	"strings"
+
+	"github.com/romberli/go-template-cli/config"
+	"github.com/romberli/go-template-cli/pkg/message"
 )
 
 // OverrideConfigByCLI read configuration from command line interface, it will override the config file configuration
