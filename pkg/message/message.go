@@ -5,7 +5,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+	http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,6 +17,7 @@ package message
 
 import (
 	"github.com/romberli/go-util/config"
+	"github.com/romberli/go-util/constant"
 )
 
 const DefaultMessageHeader = "GTW"
@@ -30,5 +31,12 @@ func init() {
 
 // NewMessage returns *config.ErrMessage with specified values
 func NewMessage(code int, values ...interface{}) *config.ErrMessage {
+	if len(values) > constant.ZeroInt {
+		err, ok := values[constant.ZeroInt].(error)
+		if ok {
+			return Messages[code].Renew(values[constant.OneInt:]...).SetError(err)
+		}
+	}
+
 	return Messages[code].Renew(values...)
 }
