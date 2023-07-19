@@ -24,18 +24,19 @@ const (
 	ErrOverrideCommandLineArgs    = 400017
 	ErrAbsoluteLogFilePath        = 400018
 	ErrInitLogger                 = 400019
-	ErrBaseDir                    = 400020
-	ErrInitConfig                 = 400021
-	ErrCheckServerPid             = 400022
-	ErrCheckServerRunningStatus   = 400023
-	ErrServerIsRunning            = 400024
-	ErrStartAsForeground          = 400025
-	ErrSavePidToFile              = 400026
-	ErrKillServerWithPid          = 400027
-	ErrKillServerWithPidFile      = 400028
-	ErrGetPidFromPidFile          = 400029
-	ErrSetSid                     = 400030
-	ErrRemovePidFile              = 400031
+	ErrRotateLogFile              = 400020
+	ErrBaseDir                    = 400021
+	ErrInitConfig                 = 400022
+	ErrCheckServerPid             = 400023
+	ErrCheckServerRunningStatus   = 400024
+	ErrServerIsRunning            = 400025
+	ErrStartAsForeground          = 400026
+	ErrSavePidToFile              = 400027
+	ErrKillServerWithPid          = 400028
+	ErrKillServerWithPidFile      = 400029
+	ErrGetPidFromPidFile          = 400030
+	ErrSetSid                     = 400031
+	ErrRemovePidFile              = 400032
 )
 
 func initErrorMessage() {
@@ -58,6 +59,7 @@ func initErrorMessage() {
 	Messages[ErrOverrideCommandLineArgs] = config.NewErrMessage(DefaultMessageHeader, ErrOverrideCommandLineArgs, "override command line arguments failed")
 	Messages[ErrAbsoluteLogFilePath] = config.NewErrMessage(DefaultMessageHeader, ErrAbsoluteLogFilePath, "get absolute path of log file failed. log file: %s")
 	Messages[ErrInitLogger] = config.NewErrMessage(DefaultMessageHeader, ErrInitLogger, "initialize logger failed")
+	Messages[ErrRotateLogFile] = config.NewErrMessage(DefaultMessageHeader, ErrRotateLogFile, "rotate log file failed")
 	Messages[ErrBaseDir] = config.NewErrMessage(DefaultMessageHeader, ErrBaseDir, "get base dir of %s failed")
 	Messages[ErrInitConfig] = config.NewErrMessage(DefaultMessageHeader, ErrInitConfig, "init config failed")
 	Messages[ErrCheckServerPid] = config.NewErrMessage(DefaultMessageHeader, ErrCheckServerPid, "check server pid file failed")

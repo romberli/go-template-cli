@@ -91,6 +91,14 @@ func overrideLogByCLI() error {
 
 		viper.Set(config.LogRotateOnStartupKey, rotateOnStartup)
 	}
+	if logStdoutStr != constant.DefaultRandomString {
+		logStdout, err := cast.ToBoolE(logStdoutStr)
+		if err != nil {
+			return errors.Trace(err)
+		}
+
+		viper.Set(config.LogStdoutKey, logStdout)
+	}
 
 	return nil
 }
