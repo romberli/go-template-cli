@@ -4,7 +4,7 @@
 # command-line-argument: --config
 # type: string
 # default: None
-config: go_template_web.yaml
+config: go_template_cli.yaml
 
 # description: specify whether das runs as daemon mode, if true, das will run as a daemon process.
 # never set this argument to true in config file, always use command line argument by using --daemon=true,
