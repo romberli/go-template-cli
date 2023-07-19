@@ -72,8 +72,8 @@ server:
   # it is recommended to specify absolute path.
   # command-line-argument: --server-pid-file
   # type: string
-  # default: go_template_web.pid
-  pidFile: go_template_web.pid
+  # default: go_template_cli.pid
+  pidFile: go_template_cli.pid
   # description: specify the read timeout of http request, 0 means no timeout
   # command-line-argument: --server-read-timeout
   # unit: second
