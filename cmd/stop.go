@@ -19,13 +19,14 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/romberli/go-template-cli/config"
-	"github.com/romberli/go-template-cli/pkg/message"
 	"github.com/romberli/go-util/constant"
 	"github.com/romberli/go-util/linux"
 	"github.com/romberli/log"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	"github.com/romberli/go-template-cli/config"
+	"github.com/romberli/go-template-cli/pkg/message"
 )
 
 // stopCmd represents the stop command
@@ -49,11 +50,11 @@ var stopCmd = &cobra.Command{
 		if serverPid != constant.DefaultRandomInt {
 			err = linux.ShutdownServer(serverPid)
 			if err != nil {
-				log.CloneStdoutLogger().Errorf(constant.LogWithStackString, message.NewMessage(message.ErrKillServerWithPid, err, serverPid))
+				log.Errorf(constant.LogWithStackString, message.NewMessage(message.ErrKillServerWithPid, err, serverPid))
 				os.Exit(constant.DefaultAbnormalExitCode)
 			}
 
-			log.CloneStdoutLogger().Info(message.NewMessage(message.InfoServerStop, serverPid).Error())
+			log.Info(message.NewMessage(message.InfoServerStop, serverPid).Error())
 			os.Exit(constant.DefaultNormalExitCode)
 		}
 
@@ -61,18 +62,18 @@ var stopCmd = &cobra.Command{
 		serverPidFile = viper.GetString(config.ServerPidFileKey)
 		serverPid, err = linux.GetPidFromPidFile(serverPidFile)
 		if err != nil {
-			log.CloneStdoutLogger().Errorf(constant.LogWithStackString, message.NewMessage(message.ErrGetPidFromPidFile, err, serverPidFile))
+			log.Errorf(constant.LogWithStackString, message.NewMessage(message.ErrGetPidFromPidFile, err, serverPidFile))
 			os.Exit(constant.DefaultAbnormalExitCode)
 		}
 
 		// kill server with pid and pid file
 		err = linux.KillServer(serverPid, serverPidFile)
 		if err != nil {
-			log.CloneStdoutLogger().Errorf(constant.LogWithStackString, message.NewMessage(message.ErrKillServerWithPidFile, err, serverPid, serverPidFile))
+			log.Errorf(constant.LogWithStackString, message.NewMessage(message.ErrKillServerWithPidFile, err, serverPid, serverPidFile))
 			os.Exit(constant.DefaultAbnormalExitCode)
 		}
 
-		log.CloneStdoutLogger().Info(message.NewMessage(message.InfoServerStop, serverPid, serverPidFile).Error())
+		log.Info(message.NewMessage(message.InfoServerStop, serverPid, serverPidFile).Error())
 		os.Exit(constant.DefaultNormalExitCode)
 	},
 }

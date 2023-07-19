@@ -116,7 +116,7 @@ var startCmd = &cobra.Command{
 				os.Exit(constant.DefaultAbnormalExitCode)
 			}
 
-			log.CloneStdoutLogger().Info(message.NewMessage(message.InfoServerStart, serverPid, serverPidFile).Error())
+			log.Info(message.NewMessage(message.InfoServerStart, serverPid, serverPidFile).Error())
 
 			// handle signal
 			linux.HandleSignals(serverPidFile)
